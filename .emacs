@@ -287,18 +287,21 @@
 ;; Always end a file with a newline
 (setq require-final-newline t)
 
-;; make TODO's and NOTE's in a different color
+;; make TODO's,  NOTE's, and FIXME's in a different color
 (setq fixme-modes '(c++-mode c-mode emacs-lisp-mode python-mode))
  (make-face 'font-lock-fixme-face)
  (make-face 'font-lock-note-face)
+ (make-face 'font-lock-attn-face)
  (mapc (lambda (mode)
 	 (font-lock-add-keywords
 	  mode
 	  '(("\\<\\(TODO\\)" 1 'font-lock-fixme-face t)
+	    ("\\<\\(FIXME\\)" 1 'font-lock-attn-face t)
             ("\\<\\(NOTE\\)" 1 'font-lock-note-face t))))
 	fixme-modes)
  (modify-face 'font-lock-fixme-face "Red" nil nil t nil t nil nil)
  (modify-face 'font-lock-note-face "Dark Green" nil nil t nil t nil nil)
+ (modify-face 'font-lock-attn-face "Yellow" nil nil t nil t nil nil)
 
 ;; Stop at the end of the file, not just add lines
 (setq next-line-add-newlines nil)
@@ -315,18 +318,21 @@
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.  Your init file should contain only 
- ;; one such instance. If there is more than one, they won't work right.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
  '(inhibit-startup-screen t)
  '(lpr-headers-switches nil)
- '(lpr-page-header-switches '("--form-feed --length=55"))
+ '(lpr-page-header-switches (quote ("--form-feed --length=55")))
  '(package-selected-packages
-   '(lsp-mode proof-general go-mode exec-path-from-shell auto-complete)))
+   (quote
+    (xterm-color proof-general rust-mode rustic lsp-mode go-mode exec-path-from-shell))))
 
 (custom-set-faces
- ;; custom-set-faces was added by Custom.  If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.  If there is more than one, they won't
- ;; work right.
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
  '(default ((t (:stipple nil :background "black" :foreground "white" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 120 :width normal :family "adobe-courier"))))
  '(makefile-space-face ((((class color)) (:background "firebrick1")))))
 
